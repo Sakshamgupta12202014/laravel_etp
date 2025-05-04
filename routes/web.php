@@ -14,9 +14,9 @@ Route::get('/hello', function () {
 // ✅ 3. Routing Parameters
 // Use parameters to pass values in the URL.
 
-Route::get('/user/{id}', function ($id) {
-    return "User ID is " . $id;
-});
+// Route::get('/user/{id}', function ($id) {
+//     return "User ID is " . $id;
+// });
 
 // Optional parameter:
 Route::get('/post/{id?}', function ($id = null) {
@@ -159,4 +159,55 @@ Route::get('/user-profile', function(){
 Route::get('/about', function(){
     return response("this is about page")->header("Content-Type", "text/plain");
 })->name('aboutpage');
+
+
+use App\Http\Controllers\ProductController;
+
+
+// since the routes are from the same controller, you can group them 
+// Route::get('/product/{id}', [ProductController::class, 'show']);
+
+// Route::get('/user/{name?}', [ProductController::class, 'greet']);
+
+// example of grouped routes
+Route::controller(ProductController::class)->group(function(){
+    Route::get('/product/{id}','show');
+    Route::get('/user/{name?}', 'greet');
+});
+
+// What If There Are Multiple Parameters?
+Route::get('/order/{user}/{product}', [ProductController::class, 'placeOrder']);
+
+
+
+use App\Http\Controllers\MarksController;
+
+Route::get('/marks/{marks}', [MarksController::class, 'result']);
+
+use App\Http\Controllers\DashBoardController;
+// Route::get('/dash', [DashBoardController::class,'index']);
+
+
+use App\Http\Controllers\ProdController;
+Route::resource('products', ProdController::class);
+
+
+// practicing blade syntax
+
+Route::get('/sample', function(){
+    // $fruits = ["Apple" ,"Banana", "Kiwi", "Orange"];
+    $fruits = [1 => "Apple", 2 => "Banana", 3 => "kiwi", 4 => "orange"];
+    return view("sample", compact("fruits"));
+});
+
+
+Route::get('/nestedProd', function(){
+    $products = [
+        ['name' => 'Laptop', 'price' => 1200],
+        ['name' => 'Phone', 'price' => 700],
+        ['name' => 'Tablet', 'price' => 400]
+    ];
+    
+    return view("sample2" ,compact("products"));
+});
 

@@ -1,0 +1,31 @@
+ Question (Slightly Challenging):
+Create a controller named ProductController.
+It should have a function show($id) that:
+
+Accepts a product ID from the URL
+
+Looks up a fake list of products (you can hardcode an array)
+
+If product found, return its name
+
+If not found, return “Product not found”
+
+
+Question 2: Real-world Logic Challenge
+Create a MarksController with a method called result($marks).
+
+The method should:
+
+Accept marks from the URL (like /marks/72)
+
+Based on the marks, return a grade:
+
+90 and above: Grade A
+
+75–89: Grade B
+
+50–74: Grade C
+
+Below 50: Fail
+
+If marks are greater than 100 or less than 0, return “Invalid Marks”
